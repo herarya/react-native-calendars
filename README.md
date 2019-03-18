@@ -101,6 +101,8 @@ LocaleConfig.defaultLocale = 'fr';
   hideDayNames={true}
   // Show week numbers to the left. Default = false
   showWeekNumbers={true}
+   // render calendar header component
+  renderHeader={(monthText, substractMonth, addMonth) => {return (<View />);}}
 />
 ```
 
