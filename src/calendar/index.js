@@ -68,6 +68,9 @@ class Calendar extends Component {
     disabledByDefault: PropTypes.bool,
     // Show week numbers. Default = false
     showWeekNumbers: PropTypes.bool,
+    // Provide custom header render component
+    renderHeader: PropTypes.func,
+
   };
 
   constructor(props) {

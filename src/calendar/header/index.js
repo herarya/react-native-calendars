@@ -16,7 +16,8 @@ class CalendarHeader extends Component {
     firstDay: PropTypes.number,
     renderArrow: PropTypes.func,
     hideDayNames: PropTypes.bool,
-    weekNumbers: PropTypes.bool
+    weekNumbers: PropTypes.bool,
+    renderHeader : PropTypes.func
   };
 
   constructor(props) {
@@ -48,6 +49,10 @@ class CalendarHeader extends Component {
       return true;
     }
     return false;
+  }
+
+  _renderHeader(monthText){
+    this.props.renderHeader(monthText,this.substractMonth,this.addMonth)
   }
 
   render() {
@@ -83,18 +88,23 @@ class CalendarHeader extends Component {
     if (this.props.showIndicator) {
       indicator = <ActivityIndicator />;
     }
+   
+    let monthText =  this.props.month.toString(this.props.monthFormat ? this.props.monthFormat : 'MMMM yyyy')
     return (
       <View>
-        <View style={this.style.header}>
-          {leftArrow}
-          <View style={{ flexDirection: 'row' }}>
-            <Text allowFontScaling={false} style={this.style.monthText}>
-              {this.props.month.toString(this.props.monthFormat ? this.props.monthFormat : 'MMMM yyyy')}
-            </Text>
-            {indicator}
-          </View>
-          {rightArrow}
-        </View>
+         {
+           this.props.renderHeader ? this._renderHeader(monthText) : <View style={this.style.header}>
+           {leftArrow}
+           <View style={{ flexDirection: 'row' }}>
+             <Text allowFontScaling={false} style={this.style.monthText}>
+               {monthText}
+             </Text>
+             {indicator}
+           </View>
+           {rightArrow}
+         </View>
+         }
+        
         {
           !this.props.hideDayNames &&
           <View style={this.style.week}>
